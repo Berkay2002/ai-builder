@@ -52,8 +52,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
 
 async function AppBar() {
   return (
-    <header className='flex items-center justify-between py-8'>
-      <Logo />
+    <header className='flex items-center justify-between rounded-full border border-black/10 bg-white/70 px-4 py-3 backdrop-blur lg:px-6'>
+      <Logo variant='dark' />
       <Navigation />
     </header>
   );
