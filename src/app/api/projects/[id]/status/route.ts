@@ -1,4 +1,4 @@
-import { getProjectForDev } from '@/app/api/projects/route';
+import { getProjectForDev } from '@/app/api/projects/dev-store';
 
 export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> }) {
   const { id } = await ctx.params;
