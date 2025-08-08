@@ -1,6 +1,6 @@
-export async function GET(_req: Request, { params }: { params: { id: string } }) {
-  // Placeholder signed URL stub
-  return Response.json({ id: params.id, preview_url: `/` });
+export async function GET(_req: Request, ctx: { params: Promise<{ id: string }> }) {
+  const { id } = await ctx.params;
+  return Response.json({ id, preview_url: `/` });
 }
 
 
