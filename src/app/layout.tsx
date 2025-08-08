@@ -1,14 +1,14 @@
 import { PropsWithChildren } from 'react';
 import type { Metadata } from 'next';
-import { APP_DISPLAY_NAME, APP_TAGLINE } from '@/config/app-config';
 import { Montserrat, Montserrat_Alternates } from 'next/font/google';
 import Link from 'next/link';
+import { Analytics } from '@vercel/analytics/react';
 import { IoLogoFacebook, IoLogoInstagram, IoLogoTwitter } from 'react-icons/io5';
 
+import { APP_DISPLAY_NAME, APP_TAGLINE } from '@/config/app-config';
 import { Logo } from '@/components/logo';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/utils/cn';
-import { Analytics } from '@vercel/analytics/react';
 
 import { Navigation } from './navigation';
 

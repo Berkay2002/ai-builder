@@ -5,12 +5,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { IoLogoGithub, IoLogoGoogle } from 'react-icons/io5';
 
+import { APP_DISPLAY_NAME } from '@/config/app-config';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/use-toast';
 import { ActionResponse } from '@/types/action-response';
-import { APP_DISPLAY_NAME } from '@/config/app-config';
 
 const titleMap = {
   login: `Login to ${APP_DISPLAY_NAME}`,
