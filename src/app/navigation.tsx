@@ -14,12 +14,18 @@ export async function Navigation() {
 
   return (
     <div className='relative flex items-center gap-6'>
+      <nav className='hidden items-center gap-6 text-sm text-neutral-300 lg:flex'>
+        <Link href='/' className='hover:text-white'>Product</Link>
+        <Link href='#' className='hover:text-white'>Resources</Link>
+        <Link href='/pricing' className='hover:text-white'>Pricing</Link>
+        <Link href='#' className='hover:text-white'>Enterprise</Link>
+      </nav>
       {session ? (
         <AccountMenu signOut={signOut} />
       ) : (
         <>
           <Button variant='sexy' className='hidden flex-shrink-0 lg:flex' asChild>
-            <Link href='/signup'>Get started for free</Link>
+            <Link href='/signup'>Start Building</Link>
           </Button>
           <Sheet>
             <SheetTrigger className='block lg:hidden'>
@@ -29,9 +35,15 @@ export async function Navigation() {
               <SheetHeader>
                 <Logo />
                 <SheetDescription className='py-8'>
-                  <Button variant='sexy' className='flex-shrink-0' asChild>
-                    <Link href='/signup'>Get started for free</Link>
-                  </Button>
+                  <div className='flex flex-col gap-4'>
+                    <Link href='/' className='text-left text-neutral-200'>Product</Link>
+                    <Link href='#' className='text-left text-neutral-200'>Resources</Link>
+                    <Link href='/pricing' className='text-left text-neutral-200'>Pricing</Link>
+                    <Link href='#' className='text-left text-neutral-200'>Enterprise</Link>
+                    <Button variant='sexy' className='flex-shrink-0' asChild>
+                      <Link href='/signup'>Start Building</Link>
+                    </Button>
+                  </div>
                 </SheetDescription>
               </SheetHeader>
             </SheetContent>

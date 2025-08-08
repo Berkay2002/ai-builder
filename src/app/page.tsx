@@ -9,7 +9,6 @@ export default async function HomePage() {
   return (
     <div className='flex flex-col gap-8 lg:gap-32'>
       <HeroSection />
-      <ExamplesSection />
       <PricingSection />
     </div>
   );
@@ -17,114 +16,41 @@ export default async function HomePage() {
 
 function HeroSection() {
   return (
-    <section className='relative overflow-hidden lg:overflow-visible'>
-      <Container className='relative rounded-lg bg-black py-20 lg:py-[140px]'>
-        <div className='relative z-10 flex flex-col gap-5 lg:max-w-xl lg:pl-8'>
-          <div className='w-fit rounded-full bg-gradient-to-r from-[#616571] via-[#7782A9] to-[#826674] px-4 py-1 '>
-            <span className='font-alt text-sm font-semibold text-black mix-blend-soft-light'>
-              Generate banners with DALL·E
-            </span>
+    <section className='relative overflow-hidden rounded-lg bg-[radial-gradient(80%_120%_at_100%_0%,rgba(255,165,0,0.25),transparent_50%),radial-gradient(80%_120%_at_0%_100%,rgba(147,197,253,0.25),transparent_50%)] py-24 lg:py-40'>
+      <Container className='relative z-10 flex flex-col items-center gap-6 text-center'>
+        <h1 className='text-5xl leading-tight text-white lg:text-7xl'>
+          Let’s make your dream a <span className='text-lime-300'>reality</span>. <br /> Right now.
+        </h1>
+        <p className='max-w-2xl text-neutral-300'>
+          Build fully‑functional apps in minutes with just your words. No coding necessary.
+        </p>
+        <div className='mt-4 w-full max-w-3xl rounded-2xl border border-white/10 bg-white/5 p-3 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)] backdrop-blur'>
+          <div className='flex items-center gap-3 rounded-xl bg-black/50 p-3'>
+            <input
+              placeholder='What do you want to build?'
+              className='flex-1 bg-transparent text-sm text-neutral-200 outline-none placeholder:text-neutral-500'
+            />
+            <Button asChild variant='sexy'>
+              <Link href='/signup' aria-label='Start'>Start</Link>
+            </Button>
           </div>
-          <h1>Instantly craft stunning Twitter banners.</h1>
-          <Button asChild variant='sexy'>
-            <Link href='/signup'>Get started for free</Link>
-          </Button>
+          <div className='mt-3 flex flex-wrap gap-2 text-xs text-neutral-400'>
+            <span className='mr-2'>Not sure where to start? Try one of these:</span>
+            <Chip>Reporting Dashboard</Chip>
+            <Chip>Gaming Platform</Chip>
+            <Chip>Onboarding Portal</Chip>
+            <Chip>Networking App</Chip>
+            <Chip>Room Visualizer</Chip>
+          </div>
         </div>
       </Container>
-      <Image
-        src='/hero-shape.png'
-        width={867}
-        height={790}
-        alt=''
-        className='absolute right-0 top-0 rounded-tr-lg'
-        priority
-        quality={100}
-      />
+      <div className='pointer-events-none absolute inset-0 bg-[radial-gradient(60%_40%_at_50%_0%,rgba(255,255,255,0.08),transparent_60%)]' />
     </section>
   );
 }
 
-function ExamplesSection() {
+function Chip({ children }: { children: React.ReactNode }) {
   return (
-    <section className='flex flex-col gap-4 overflow-hidden rounded-lg bg-black py-8'>
-      <div className='flex justify-center gap-4'>
-        <Image
-          className='flex-shrink-0'
-          src='/example1.png'
-          width={600}
-          height={200}
-          alt='Example of a generated banner'
-          quality={100}
-        />
-        <Image
-          className='flex-shrink-0'
-          src='/example2.png'
-          width={600}
-          height={200}
-          alt='Example of a generated banner'
-          quality={100}
-        />
-        <Image
-          className='flex-shrink-0'
-          src='/example3.png'
-          width={600}
-          height={200}
-          alt='Example of a generated banner'
-          quality={100}
-        />
-      </div>
-      <div className='flex gap-4'>
-        <Image
-          className='flex-shrink-0'
-          src='/example4.png'
-          width={600}
-          height={200}
-          alt='Example of a generated banner'
-          quality={100}
-        />
-        <Image
-          className='flex-shrink-0'
-          src='/example5.png'
-          width={600}
-          height={200}
-          alt='Example of a generated banner'
-          quality={100}
-        />
-        <Image
-          className='flex-shrink-0'
-          src='/example6.png'
-          width={600}
-          height={200}
-          alt='Example of a generated banner'
-          quality={100}
-        />
-      </div>
-      <div className='flex justify-center gap-4'>
-        <Image
-          className='flex-shrink-0'
-          src='/example7.png'
-          width={600}
-          height={200}
-          alt='Example of a generated banner'
-          quality={100}
-        />
-        <Image
-          className='flex-shrink-0'
-          src='/example8.png'
-          width={600}
-          height={200}
-          alt='Example of a generated banner'
-          quality={100}
-        />
-        <Image
-          className='flex-shrink-0'
-          src='/example9.png'
-          width={600}
-          height={200}
-          alt='Example of a generated banner'
-          quality={100}
-        />
-      </div>
-    </section>
+    <span className='rounded-full border border-white/10 bg-white/5 px-3 py-1 text-neutral-400'>{children}</span>
   );
 }

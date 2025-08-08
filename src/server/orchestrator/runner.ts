@@ -1,8 +1,8 @@
 import { execFile } from 'node:child_process'
-import { readFile, writeFile } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
-import { promisify } from 'node:util'
+import { readFile } from 'node:fs/promises'
 import path from 'node:path'
+import { promisify } from 'node:util'
 
 import { Manifest, ManifestSchema } from './schema'
 
