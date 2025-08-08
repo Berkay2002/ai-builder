@@ -1,0 +1,34 @@
+{
+  "app_name": "my-saas",
+  "app_display_name": "My SaaS",
+  "app_tagline": "Do more with less.",
+  "pages": [
+    { "id": "home", "route": "/" },
+    { "id": "pricing", "route": "/pricing" },
+    { "id": "account", "route": "/account", "auth": true }
+  ],
+  "entities": {
+    "users": { "fields": [ { "name": "email", "type": "string", "unique": true } ] }
+  },
+  "integrations": {
+    "supabase": { "project_id": "{{SUPABASE_PROJECT_ID}}" },
+    "stripe": {
+      "product_fixture": "stripe-fixtures.json",
+      "cli_project_name": "{{STRIPE_CLI_PROJECT_NAME}}",
+      "app_name": "{{STRIPE_APP_NAME}}",
+      "publishable_key": "{{NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}}"
+    }
+  },
+  "deploy": { "type": "vercel", "env": [
+    "NEXT_PUBLIC_SITE_URL",
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+    "SUPABASE_SERVICE_ROLE_KEY",
+    "STRIPE_SECRET_KEY",
+    "STRIPE_WEBHOOK_SECRET",
+    "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
+    "RESEND_API_KEY"
+  ] }
+}
+
+

@@ -1,0 +1,12 @@
+{
+  "disallowed_operations": [
+    "write_secrets_to_repo",
+    "arbitrary_network_requests",
+    "delete_history"
+  ],
+  "auto_fix_limits": {
+    "max_attempts": 2
+  }
+}
+
+

@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/ai-builder/manifest.schema.json",
+  "title": "AI Builder App Manifest",
+  "type": "object",
+  "required": ["app_name", "pages"],
+  "additionalProperties": false,
+  "properties": {
+    "app_name": { "type": "string", "minLength": 1 },
+    "app_display_name": { "type": "string" },
+    "app_tagline": { "type": "string" },
+    "pages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "route"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "route": { "type": "string" },
+          "auth": { "type": "boolean" }
+        }
+      }
+    },
+    "entities": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name", "type"],
+              "properties": {
+                "name": { "type": "string" },
+                "type": { "type": "string" },
+                "unique": { "type": "boolean" },
+                "nullable": { "type": "boolean" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "integrations": {
+      "type": "object",
+      "properties": {
+        "supabase": {
+          "type": "object",
+          "properties": {
+            "project_id": { "type": "string" }
+          },
+          "required": ["project_id"],
+          "additionalProperties": true
+        },
+        "stripe": {
+          "type": "object",
+          "properties": {
+            "product_fixture": { "type": "string", "default": "stripe-fixtures.json" },
+            "cli_project_name": { "type": "string" },
+            "app_name": { "type": "string" },
+            "publishable_key": { "type": "string" }
+          },
+          "additionalProperties": true
+        },
+        "resend": {
+          "type": "object",
+          "properties": {
+            "api_key": { "type": "string" }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "deploy": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["vercel", "docker"] },
+        "env": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}
+
+
