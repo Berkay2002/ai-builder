@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react';
 import type { Metadata } from 'next';
+import { APP_DISPLAY_NAME, APP_TAGLINE } from '@/config/app-config';
 import { Montserrat, Montserrat_Alternates } from 'next/font/google';
 import Link from 'next/link';
 import { IoLogoFacebook, IoLogoInstagram, IoLogoTwitter } from 'react-icons/io5';
@@ -27,8 +28,8 @@ const montserratAlternates = Montserrat_Alternates({
 });
 
 export const metadata: Metadata = {
-  title: '{{APP_DISPLAY_NAME}}',
-  description: '{{APP_TAGLINE}}',
+  title: APP_DISPLAY_NAME,
+  description: APP_TAGLINE,
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
@@ -109,7 +110,7 @@ function Footer() {
       </div>
       <div className='border-t border-zinc-800 py-6 text-center'>
         <span className='text-neutral4 text-xs'>
-          Copyright {new Date().getFullYear()} © {{APP_DISPLAY_NAME}}
+          Copyright {new Date().getFullYear()} © {APP_DISPLAY_NAME}
         </span>
       </div>
     </footer>

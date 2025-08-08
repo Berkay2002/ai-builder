@@ -62,6 +62,10 @@ function main() {
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: manifest.integrations?.stripe?.publishable_key || '',
   };
 
+  // Ensure NEXT_PUBLIC_* envs also mirror display/tagline
+  replacements.NEXT_PUBLIC_APP_DISPLAY_NAME = replacements.APP_DISPLAY_NAME;
+  replacements.NEXT_PUBLIC_APP_TAGLINE = replacements.APP_TAGLINE;
+
   applyRepoParameterization(repoRoot, replacements);
 
   const envTemplateCandidates = [

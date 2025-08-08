@@ -10,10 +10,11 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/use-toast';
 import { ActionResponse } from '@/types/action-response';
+import { APP_DISPLAY_NAME } from '@/config/app-config';
 
 const titleMap = {
-  login: 'Login to {{APP_DISPLAY_NAME}}',
-  signup: 'Join {{APP_DISPLAY_NAME}} and start your journey',
+  login: `Login to ${APP_DISPLAY_NAME}`,
+  signup: `Join ${APP_DISPLAY_NAME} and start your journey`,
 } as const;
 
 export function AuthUI({
