@@ -73,11 +73,14 @@ function main() {
     path.join(repoRoot, 'env.template')
   ];
   const envTemplatePath = envTemplateCandidates.find(p => fs.existsSync(p));
-  if (envTemplatePath) {
+  const envLocalPath = path.join(repoRoot, '.env.local');
+  if (fs.existsSync(envLocalPath)) {
+    console.log('[transform] .env.local exists; leaving it unchanged');
+  } else if (envTemplatePath) {
     const template = fs.readFileSync(envTemplatePath, 'utf8');
     const envResolved = replacePlaceholdersInText(template, replacements);
-    writeFileSafe(path.join(repoRoot, '.env.local'), envResolved);
-    console.log('[transform] wrote .env.local');
+    writeFileSafe(envLocalPath, envResolved);
+    console.log('[transform] wrote .env.local from template');
   } else {
     console.warn('[transform] .env.template/env.template not found; skipping env generation');
   }

@@ -1,57 +1,57 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import { Poppins } from "next/font/google"
 
-import { Container } from '@/components/container';
-import { Button } from '@/components/ui/button';
-import { PricingSection } from '@/features/pricing/components/pricing-section';
+import FooterCard from "@/components/footer"
+import HeroSearch from "@/components/hero-search"
+import Navbar from "@/components/navbar"
 
-export default async function HomePage() {
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+})
+
+export default function Page() {
   return (
-    <div className='flex flex-col gap-8 lg:gap-32'>
-      <HeroSection />
-      <PricingSection />
-    </div>
-  );
-}
+    <main className="relative min-h-screen text-[#111111]">
+      {/* Diagonal, multi-stop gradient covering the entire viewport (and above navbar) */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 -z-10 bg-[linear-gradient(135deg,_#b8b6d4_0%,_#b6c0df_35%,_#f6b997_100%)]"
+      />
 
-function HeroSection() {
-  return (
-    <section className='relative overflow-hidden rounded-lg bg-gradient-to-br from-[#C8C7E8] via-[#C9D0EE] to-[#F4B08A] py-24 lg:py-40'>
-      <div className='absolute inset-0 bg-white/40 mix-blend-overlay' />
-      <Container className='relative z-10 flex flex-col items-center gap-6 text-center'>
-        <h1 className='text-5xl leading-tight text-white lg:text-7xl'>
-          Let’s make your dream a <span className='text-lime-300'>reality</span>. <br /> Right now.
-        </h1>
-        <p className='max-w-2xl text-neutral-700'>
-          Build fully‑functional apps in minutes with just your words. No coding necessary.
-        </p>
-        <div className='mt-4 w-full max-w-3xl rounded-2xl border border-black/10 bg-white/60 p-3 shadow-[0_1px_0_rgba(0,0,0,0.05)] backdrop-blur'>
-          <div className='flex items-center gap-3 rounded-xl bg-white p-3'>
-            <input
-              placeholder='What do you want to build?'
-              className='flex-1 bg-transparent text-sm text-neutral-800 outline-none placeholder:text-neutral-500'
+      <Navbar />
+
+      <section className="mx-auto max-w-6xl px-4 pb-16 pt-16 sm:pt-24 md:pt-28">
+        <div className="mx-auto max-w-4xl text-center">
+          <h1
+            className={`${poppins.className} mx-auto font-normal text-[#111111] tracking-[-0.02em] leading-snug drop-shadow-none text-4xl sm:text-5xl md:text-[3.4rem]`}
+          >
+            {"Let's make your dream a "}
+            <span className="text-[#E9F599]">reality.</span>
+            <br />
+            <span
+              className={`${poppins.className} mx-auto font-normal text-[#111111] tracking-[-0.02em] leading-snug text-4xl sm:text-5xl md:text-[3.4rem]`}
+            >
+              {"Right now."}
+            </span>
+          </h1>
+
+          <p className="mx-auto mt-6 max-w-xl text-base sm:text-lg font-normal text-gray-700 leading-relaxed">
+            Novu lets you build fully-functional apps in minutes with just your words. No coding necessary.
+            <span
+              className="ml-1 inline-block h-2 w-2 rounded-full bg-violet-400 align-middle animate-pulse"
+              aria-hidden="true"
             />
-            <button className='rounded-lg bg-[#FEE4A2] px-4 py-2 text-sm font-medium text-black shadow hover:bg-[#ffe08b]'>
-              Start Building
-            </button>
-          </div>
-          <div className='mt-3 flex flex-wrap gap-2 text-xs text-neutral-600'>
-            <span className='mr-2'>Not sure where to start? Try one of these:</span>
-            <Chip>Reporting Dashboard</Chip>
-            <Chip>Gaming Platform</Chip>
-            <Chip>Onboarding Portal</Chip>
-            <Chip>Networking App</Chip>
-            <Chip>Room Visualizer</Chip>
-          </div>
+          </p>
         </div>
-      </Container>
-      <div className='pointer-events-none absolute inset-0 bg-[radial-gradient(40%_30%_at_50%_0%,rgba(255,255,255,0.6),transparent_60%)]' />
-    </section>
-  );
-}
 
-function Chip({ children }: { children: React.ReactNode }) {
-  return (
-    <span className='rounded-full border border-white/10 bg-white/5 px-3 py-1 text-neutral-400'>{children}</span>
-  );
+        <div className="mt-8 sm:mt-10">
+          <HeroSearch />
+        </div>
+
+        <div className="mt-64 md:mt-80">
+          <FooterCard />
+        </div>
+      </section>
+    </main>
+  )
 }
