@@ -43,6 +43,8 @@ export async function createApp({
   const token = await freestyle.createGitAccessToken({
     identityId: user.freestyleIdentity,
   });
+  const tokenValue = String((token as any)?.token ?? "");
+  const tokenIdValue = String((token as any)?.id ?? "");
 
   console.timeEnd("git");
 
@@ -67,11 +69,11 @@ export async function createApp({
       .values({
         appId: appInsertion[0].id,
         userId: user.userId,
-        permissions: "admin",
-        freestyleAccessToken: token.token,
-        freestyleAccessTokenId: token.id,
+        permissions: "admin" as any,
+        freestyleAccessToken: tokenValue,
+        freestyleAccessTokenId: tokenIdValue,
         freestyleIdentity: user.freestyleIdentity,
-      })
+      } as any)
       .returning();
 
     return appInsertion[0];
@@ -79,9 +81,15 @@ export async function createApp({
   console.timeEnd("database: create app");
 
   console.time("mastra: create thread");
-  await memory.createThread({
-    threadId: app.id,
-    resourceId: app.id,
+  await memory.saveThread({
+    thread: {
+      id: app.id,
+      title: initialMessage || "New App Thread",
+      resourceId: app.id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      metadata: {},
+    } as any,
   });
   console.timeEnd("mastra: create thread");
 

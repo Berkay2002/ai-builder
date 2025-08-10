@@ -3,7 +3,7 @@ import Stripe from 'stripe';
 import { upsertUserSubscription } from '@/features/account/controllers/upsert-user-subscription';
 import { upsertPrice } from '@/features/pricing/controllers/upsert-price';
 import { upsertProduct } from '@/features/pricing/controllers/upsert-product';
-import { stripeAdmin } from '@/libs/stripe/stripe-admin';
+import { getStripeAdmin, isStripeEnabled } from '@/libs/stripe/stripe-admin';
 import { getEnvVar } from '@/utils/get-env-var';
 
 const relevantEvents = new Set([
@@ -18,6 +18,9 @@ const relevantEvents = new Set([
 ]);
 
 export async function POST(req: Request) {
+  if (!isStripeEnabled()) {
+    return Response.json({ ok: true });
+  }
   const body = await req.text();
   const sig = req.headers.get('stripe-signature') as string;
   const webhookSecret = getEnvVar(process.env.STRIPE_WEBHOOK_SECRET, 'STRIPE_WEBHOOK_SECRET');
@@ -25,7 +28,7 @@ export async function POST(req: Request) {
 
   try {
     if (!sig || !webhookSecret) return;
-    event = stripeAdmin.webhooks.constructEvent(body, sig, webhookSecret);
+    event = getStripeAdmin().webhooks.constructEvent(body, sig, webhookSecret);
   } catch (error) {
     return Response.json(`Webhook Error: ${(error as any).message}`, { status: 400 });
   }

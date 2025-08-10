@@ -31,7 +31,7 @@ export function useChatSafe(options: Parameters<typeof useChat>[0] & { id: strin
         });
       }
     };
-  }, [resume, id]);
+  }, [resume, id, chat]);
 
   return chat as any;
 }

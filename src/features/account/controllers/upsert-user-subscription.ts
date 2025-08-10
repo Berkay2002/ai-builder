@@ -1,6 +1,6 @@
 import Stripe from 'stripe';
 
-import { stripeAdmin } from '@/libs/stripe/stripe-admin';
+import { getStripeAdmin, isStripeEnabled } from '@/libs/stripe/stripe-admin';
 import { supabaseAdminClient } from '@/libs/supabase/supabase-admin';
 import type { Database } from '@/libs/supabase/types';
 import { toDateTime } from '@/utils/to-date-time';
@@ -15,6 +15,7 @@ export async function upsertUserSubscription({
   customerId: string;
   isCreateAction?: boolean;
 }) {
+  if (!isStripeEnabled()) return;
   // Get customer's userId from mapping table.
   const { data: customerData, error: noCustomerError } = await supabaseAdminClient
     .from('customers')
@@ -25,7 +26,7 @@ export async function upsertUserSubscription({
 
   const { id: userId } = customerData!;
 
-  const subscription = await stripeAdmin.subscriptions.retrieve(subscriptionId, {
+  const subscription = await getStripeAdmin().subscriptions.retrieve(subscriptionId, {
     expand: ['default_payment_method'],
   });
 
@@ -69,7 +70,7 @@ const copyBillingDetailsToCustomer = async (userId: string, paymentMethod: Strip
   const { name, phone, address } = paymentMethod.billing_details;
   if (!name || !phone || !address) return;
 
-  await stripeAdmin.customers.update(customer, { name, phone, address: address as AddressParam });
+  await getStripeAdmin().customers.update(customer, { name, phone, address: address as AddressParam });
 
   const { error } = await supabaseAdminClient
     .from('users')

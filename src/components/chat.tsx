@@ -51,16 +51,19 @@ export default function Chat(props: {
         ],
       },
       {
+        body: JSON.stringify({ message: input }),
         headers: {
-          "Adorable-App-Id": props.appId,
+          "Novu-App-Id": props.appId,
         },
-      }
+        method: "POST",
+        url: "/api/agent",
+      } as any
     );
     setInput("");
   };
 
   const onSubmitWithImages = (text: string, images: CompressedImage[]) => {
-    const parts: Parameters<typeof sendMessage>[0]["parts"] = [];
+    const parts: Array<{ type: string; text?: string; mediaType?: string; url?: string }> = [];
 
     if (text.trim()) {
       parts.push({
@@ -82,10 +85,13 @@ export default function Chat(props: {
         parts,
       },
       {
+        body: JSON.stringify({ message: text }),
         headers: {
-          "Adorable-App-Id": props.appId,
+          "Novu-App-Id": props.appId,
         },
-      }
+        method: "POST",
+        url: "/api/agent",
+      } as any
     );
     setInput("");
   };
@@ -94,7 +100,7 @@ export default function Chat(props: {
     await fetch("/api/chat/" + props.appId + "/stream", {
       method: "DELETE",
       headers: {
-        "Adorable-App-Id": props.appId,
+        "Novu-App-Id": props.appId,
       },
     });
   }

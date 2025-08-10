@@ -4,8 +4,6 @@ import { z } from "zod";
 import OpenAI from "openai";
 import { FreestyleDevServerFilesystem } from "freestyle-sandboxes";
 
-const openai = new OpenAI({ apiKey: process.env.MORPH_API_KEY, baseURL: "https://api.morphllm.com/v1" });
-
 export const morphTool = (fs: FreestyleDevServerFilesystem) =>
   createTool({
     id: "edit_file",
@@ -22,7 +20,12 @@ export const morphTool = (fs: FreestyleDevServerFilesystem) =>
           "Specify ONLY the precise lines of code that you wish to edit. NEVER specify or write out unchanged code. Instead, represent all unchanged code using the comment of the language you're editing in - example: // ... existing code ...",
         ),
     }),
-    execute: async ({ context: { target_file, instructions, code_edit: editSnippet } }) => {
+    execute: async ({ context }: { context: { target_file: string; instructions: string; code_edit: string } }) => {
+      if (!process.env.MORPH_API_KEY) {
+        throw new Error("Morph tool disabled: MORPH_API_KEY not set");
+      }
+      const openai = new OpenAI({ apiKey: process.env.MORPH_API_KEY, baseURL: "https://api.morphllm.com/v1" });
+      const { target_file, instructions, code_edit: editSnippet } = context;
       let file;
       try {
         file = await fs.readFile(target_file);

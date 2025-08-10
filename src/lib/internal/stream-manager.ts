@@ -1,8 +1,8 @@
-import { UIMessage } from "ai";
+import type { UIMessage } from "ai";
 import { after } from "next/server";
 import { createResumableStreamContext } from "resumable-stream";
 import { redis, redisPublisher } from "./redis";
-import { AIService } from "./ai-service";
+import { AIService } from "@/lib/internal/ai-service";
 import { Agent } from "@mastra/core/agent";
 import { FreestyleDevServerFilesystem } from "freestyle-sandboxes";
 
@@ -101,8 +101,8 @@ export async function setStream(appId: string, prompt: UIMessage, stream: any): 
 
   return {
     response() {
-      redis.subscribe(`events:${appId}`, (event) => {
-        const data = JSON.parse(event);
+      redis?.subscribe?.(`events:${appId}`, (event: string) => {
+        const data = JSON.parse(event as unknown as string);
         if (data.type === "abort-stream") {
           console.log("cancelling http stream");
           resumableStream?.cancel();
@@ -124,8 +124,8 @@ export async function setStream(appId: string, prompt: UIMessage, stream: any): 
 }
 
 export async function setupAbortCallback(appId: string, callback: () => void): Promise<void> {
-  redis.subscribe(`events:${appId}`, (event) => {
-    const data = JSON.parse(event);
+  redis?.subscribe?.(`events:${appId}`, (event: string) => {
+    const data = JSON.parse(event as unknown as string);
     if (data.type === "abort-stream") callback();
   });
 }

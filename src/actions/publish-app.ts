@@ -85,9 +85,9 @@ export async function publishApp({ appId }: { appId: string }) {
     }
   );
 
-  if (deployment.message) {
-    console.error("Deployment failed:", deployment.message);
-    throw new Error(`Deployment failed`);
+  // freestyle.deployWeb throws on failure; on success it returns an object with deploymentId
+  if (!('deploymentId' in deployment)) {
+    throw new Error('Deployment failed');
   }
 
   db.insert(appDeployments).values({

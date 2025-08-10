@@ -190,7 +190,7 @@ function ChatContainer({
 
     prevChildrenCountRef.current = currentChildrenCount;
     prevChildrenRef.current = children;
-  }, [children, setNewMessageAdded]);
+  }, [children, setNewMessageAdded, prevChildrenCountRef]);
 
   useEffect(() => {
     if (!autoScroll) return;

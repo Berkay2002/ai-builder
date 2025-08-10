@@ -96,7 +96,7 @@ export function PromptInputBasic({
       )}
 
       <PromptInput value={input} onValueChange={(value) => onValueChange?.(value)} isLoading={isLoading || isCompressing} onSubmit={handleSubmitWithData} className="w-full rounded-lg border border-gray-300 bg-transparent shadow-sm transition-all duration-200 ease-in-out focus-within:border-gray-400 focus-within:ring-1 focus-within:ring-gray-200">
-        <PromptInputTextarea placeholder={isGenerating ? "Adorable is working..." : isCompressing ? "Compressing images..." : "Type your message here..."} className="bg-transparent pr-20 dark:bg-transparent" disabled={disabled} />
+        <PromptInputTextarea placeholder={isGenerating ? "Novu is working..." : isCompressing ? "Compressing images..." : "Type your message here..."} className="bg-transparent pr-20 dark:bg-transparent" disabled={disabled} />
       </PromptInput>
 
       <input ref={fileInputRef} type="file" accept="image/*" multiple onChange={handleFileSelect} className="hidden" />

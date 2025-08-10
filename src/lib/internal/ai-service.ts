@@ -1,5 +1,5 @@
-import { UIMessage } from "ai";
-import { MCPClient } from "@mastra/mcp";
+import type { UIMessage } from "ai";
+import { MastraMCPClient } from "@mastra/mcp";
 import { Agent } from "@mastra/core/agent";
 import { MessageList } from "@mastra/core/agent";
 import { builderAgent } from "@/mastra/agents/builder";
@@ -36,7 +36,7 @@ export class AIService {
     message: UIMessage,
     options?: Partial<AIStreamOptions>,
   ): Promise<AIResponse> {
-    const mcp = new MCPClient({ id: crypto.randomUUID(), servers: { dev_server: { url: new URL(mcpUrl) } } });
+    const mcp = new MastraMCPClient({ id: crypto.randomUUID(), servers: { dev_server: { url: new URL(mcpUrl) } } });
     const freestyleToolsets = await mcp.getToolsets();
 
     const memory = await agent.getMemory();

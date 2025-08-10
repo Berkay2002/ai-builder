@@ -24,7 +24,7 @@ export async function Navigation() {
         <AccountMenu signOut={signOut} />
       ) : (
         <>
-          <Button variant='sexy' className='hidden flex-shrink-0 lg:flex' asChild>
+          <Button variant='secondary' className='hidden flex-shrink-0 lg:flex' asChild>
             <Link href='/signup'>Start Building</Link>
           </Button>
           <Sheet>
@@ -40,7 +40,7 @@ export async function Navigation() {
                     <Link href='#' className='text-left text-neutral-200'>Resources</Link>
                     <Link href='/pricing' className='text-left text-neutral-200'>Pricing</Link>
                     <Link href='#' className='text-left text-neutral-200'>Enterprise</Link>
-                    <Button variant='sexy' className='flex-shrink-0' asChild>
+                    <Button variant='secondary' className='flex-shrink-0' asChild>
                       <Link href='/signup'>Start Building</Link>
                     </Button>
                   </div>

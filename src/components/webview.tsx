@@ -27,7 +27,7 @@ export default function WebView(props: { repo: string; baseId: string; appId: st
         ref={devServerRef}
         actions={{ requestDevServer }}
         repoId={props.repo}
-        loadingComponent={({ iframeLoading, devCommandRunning }) =>
+        loadingComponent={({ iframeLoading, devCommandRunning }: { iframeLoading: boolean; devCommandRunning: boolean }) =>
           !devCommandRunning && (
             <div className="flex h-full items-center justify-center">
               <div>

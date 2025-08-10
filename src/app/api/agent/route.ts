@@ -1,28 +1,25 @@
-import { getGeminiClient } from '@/server/agent/gemini-client'
-import { loadLovablePrompt, loadLovableTools } from '@/server/agent/prompt'
-import { buildToolRegistry } from '@/server/agent/tools'
+import { builderAgent } from '@/mastra/agents/builder'
+import { freestyle } from '@/lib/freestyle'
+import { sendMessageWithStreaming } from '@/lib/internal/stream-manager'
+import { UIMessage } from 'ai'
 
 export const dynamic = 'force-dynamic'
 
 export async function POST(req: Request) {
-  const body = (await req.json()) as { message: string }
-  if (!body?.message) return Response.json({ error: 'message required' }, { status: 400 })
+  const appId = req.headers.get('Novu-App-Id') || 'default';
+  const body = (await req.json()) as { message: string };
+  if (!body?.message) return Response.json({ error: 'message required' }, { status: 400 });
 
-  // Load prompt and tools
-  const systemPrompt = await loadLovablePrompt()
-  const toolsSpec = await loadLovableTools()
-  const tools = buildToolRegistry()
+  const { fs, mcpEphemeralUrl } = await freestyle.requestDevServer({ repoId: appId });
 
-  // Minimal scaffold: echo tool list and prompt back
-  // TODO: integrate Gemini 2.5 function/tool calling once available in SDK
-  const ai = getGeminiClient()
-  const response = await ai.models.generateContent({
-    model: 'gemini-2.5-flash',
-    contents: `${systemPrompt}\nUser: ${body.message}`,
-  })
-  const text = response.text
+  const uiMessage: UIMessage = {
+    id: crypto.randomUUID(),
+    role: 'user',
+    parts: [{ type: 'text', text: body.message }],
+  } as any;
 
-  return Response.json({ text, tool_count: Object.keys(tools).length, tools_spec_count: Array.isArray(toolsSpec) ? toolsSpec.length : 0 })
+  const stream = await sendMessageWithStreaming(builderAgent, appId, mcpEphemeralUrl, fs, uiMessage);
+  return stream.response();
 }
 
 

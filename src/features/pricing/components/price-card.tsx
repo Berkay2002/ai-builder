@@ -45,10 +45,10 @@ export function PricingCard({
   const yearPrice = product.prices.find((price) => price.interval === 'year')?.unit_amount;
   const isBillingIntervalYearly = billingInterval === 'year';
   const metadata = productMetadataSchema.parse(product.metadata);
-  const buttonVariantMap = {
+  const buttonVariantMap: Record<typeof metadata.priceCardVariant, 'default' | 'secondary'> = {
     basic: 'default',
-    pro: 'sexy',
-    enterprise: 'orange',
+    pro: 'secondary',
+    enterprise: 'secondary',
   } as const;
 
   function handleBillingIntervalChange(billingInterval: BillingInterval) {
